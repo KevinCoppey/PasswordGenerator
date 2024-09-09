@@ -1,5 +1,13 @@
 # Password Generator
 
+# Your Project Name
+
+![Build Status](https://img.shields.io/github/actions/workflow/status/KevinCoppey/PasswordGenerator/python-ci.yml?branch=main)
+![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)
+![Coverage](https://img.shields.io/codecov/c/github/KevinCoppey/PasswordGenerator?color=green)
+![Flake8](https://img.shields.io/badge/code%20style-flake8-blue)
+![License](https://img.shields.io/github/license/KevinCoppey/PasswordGenerator)
+
 ## Overview
 
 This project is a **Password Generator Application** built using `tkinter` for the GUI, `Pillow` for image handling, and `secrets` for generating secure random passwords. It allows users to generate passwords with custom lengths and character compositions, including uppercase letters, lowercase letters, numbers, and symbols. The app also provides features like password strength evaluation, clipboard copy functionality, and visual notifications.
