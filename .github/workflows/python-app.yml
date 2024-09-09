@@ -85,13 +85,13 @@ jobs:
 
     - name: Build executables
       run: |
-        if [ "$RUNNER_OS" = 'Linux' ]; then
+        if [ "$RUNNER_OS" == 'Linux' ]; then
           pyinstaller --onefile main.py
           mv dist/main ./dist/main_linux
-        elif [ "$RUNNER_OS" = 'macOS' ]; then
+        elif [ ${{ runner.os }} == 'macOS' ]; then
           pyinstaller --onefile main.py
           mv dist/main ./dist/main_macos
-        elif [ "$RUNNER_OS" = 'Windows' ]; then
+        elif [ ${{ runner.os }} == 'Windows' ]; then
           pyinstaller --onefile main.py
           mv dist/main.exe ./dist/main_windows.exe
         fi
@@ -108,7 +108,7 @@ jobs:
       id: create_release
       uses: actions/create-release@v1
       with:
-        tag_name: ${{ github.event.release.tag_name }}
+        tag_name: ${{ github.ref }}
         release_name: Release ${{ github.event.release.tag_name }}
         draft: false
         prerelease: false
@@ -119,10 +119,8 @@ jobs:
       uses: actions/upload-release-asset@v1
       with:
         upload_url: ${{ steps.create_release.outputs.upload_url }}
-        asset_path: |
-          ${{ needs.build-release.outputs.asset_path }}
-        asset_name: |
-          ${{ needs.build-release.outputs.asset_name }}
+        asset_path: ${{ matrix.os == 'Windows' && './dist/main_windows.exe' || matrix.os == 'macOS' && './dist/main_macos' || './dist/main_linux' }}
+        asset_name: ${{ matrix.os == 'Windows' && 'main_windows.exe' || matrix.os == 'macOS' && 'main_macos' || 'main_linux' }}
         asset_content_type: application/octet-stream
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
