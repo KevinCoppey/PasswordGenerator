@@ -1,7 +1,5 @@
 # Password Generator
 
-# Your Project Name
-
 ![Build Status](https://img.shields.io/github/actions/workflow/status/KevinCoppey/PasswordGenerator/python-app.yml?branch=main)
 ![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)
 ![Flake8](https://img.shields.io/badge/code%20style-flake8-blue)
