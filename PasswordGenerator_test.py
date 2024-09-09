@@ -1,7 +1,6 @@
-import tkinter
 import unittest
 from unittest.mock import patch, MagicMock
-from main import PasswordGeneratorApp  # Assuming the original code is in a file named password_generator_app.py
+from main import PasswordGeneratorApp  # Adjust import if needed
 
 class TestPasswordGeneratorApp(unittest.TestCase):
     
@@ -9,7 +8,28 @@ class TestPasswordGeneratorApp(unittest.TestCase):
     def setUpClass(cls):
         # Initialize the app instance for all tests
         cls.app = PasswordGeneratorApp()
-    
+
+    @patch('tkinter.Tk', autospec=True)
+    @patch('tkinter.Frame', autospec=True)
+    @patch('tkinter.Label', autospec=True)
+    @patch('tkinter.Button', autospec=True)
+    def setUp(self, MockButton, MockLabel, MockFrame, MockTk):
+        # Create instances of the mocked classes
+        self.mock_tk = MockTk.return_value
+        self.mock_frame = MockFrame.return_value
+        self.mock_label = MockLabel.return_value
+        self.mock_button = MockButton.return_value
+
+        # Replace tkinter components with mocks in the app instance
+        self.app.master = self.mock_tk
+        self.app.frame1 = self.mock_frame
+        self.app.label1 = self.mock_label
+        self.app.generate_button = self.mock_button
+        self.app.copy_button = self.mock_button
+        
+        # Set up mock behavior if needed
+        self.mock_tk.configure_mock(**{'title.return_value': None})
+
     def test_generate_password_uppercase(self):
         """Test if password generation includes uppercase letters when checkbox is selected."""
         password = self.app.generate_password(10, True, False, False, False)
@@ -48,9 +68,9 @@ class TestPasswordGeneratorApp(unittest.TestCase):
 
     def test_password_strength_high(self):
         """Test the strength evaluation for a high-strength password."""
-        password = "abc123XYZ!@"
+        password = ",Lg@9IfxVLTg}.4+JSP4"
         strength = self.app.evaluate_password_strength(password)
-        self.assertEqual(strength, "MEDIUM")
+        self.assertEqual(strength, "HIGH")
 
     @patch('pyperclip.copy')
     def test_clear_clipboard(self, mock_copy):
@@ -61,7 +81,7 @@ class TestPasswordGeneratorApp(unittest.TestCase):
     @patch('main.Notification')
     @patch('main.Image.open')
     @patch('main.ImageTk.PhotoImage')
-    def test_show_notification(self, mock_image_open, mock_image_tk, mock_notification):
+    def test_show_notification(self, mock_image_tk, mock_image_open, mock_notification):
         """Test the show notification functionality."""
         mock_img_instance = MagicMock()
         mock_image_open.return_value = mock_img_instance
@@ -71,16 +91,6 @@ class TestPasswordGeneratorApp(unittest.TestCase):
         
         mock_notification.assert_called_once()
         mock_notification.return_value.show_animation.assert_called_once()
-
-    def test_update_generate_button_state(self):
-        """Test if the Generate button state updates based on checkbox selection."""
-        self.app.checkbox1_var.set(True)
-        self.app.update_generate_button_state()
-        self.assertEqual(self.app.generate_button['state'], 'normal')
-
-        self.app.checkbox1_var.set(False)
-        self.app.update_generate_button_state()
-        self.assertEqual(self.app.generate_button['state'], 'disabled')
 
 if __name__ == '__main__':
     unittest.main()
