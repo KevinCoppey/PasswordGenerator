@@ -2,11 +2,12 @@
 
 # Your Project Name
 
-![Build Status](https://img.shields.io/github/actions/workflow/status/KevinCoppey/PasswordGenerator/python-ci.yml?branch=main)
+![Build Status](https://img.shields.io/github/actions/workflow/status/KevinCoppey/PasswordGenerator/python-app.yml?branch=main)
 ![Python Version](https://img.shields.io/badge/python-3.10%20%7C%203.11%20%7C%203.12-blue)
-![Coverage](https://img.shields.io/codecov/c/github/KevinCoppey/PasswordGenerator?color=green)
 ![Flake8](https://img.shields.io/badge/code%20style-flake8-blue)
 ![License](https://img.shields.io/github/license/KevinCoppey/PasswordGenerator)
+![GitHub Last Commit](https://img.shields.io/github/last-commit/KevinCoppey/PasswordGenerator)
+
 
 ## Overview
 
