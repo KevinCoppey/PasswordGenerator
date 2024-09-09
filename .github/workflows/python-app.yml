@@ -85,13 +85,13 @@ jobs:
 
     - name: Build executables
       run: |
-        if ([ ${{ runner.os }} == 'Linux' ]); then
+        if [ $RUNNER_OS == 'Linux' ]; then
           pyinstaller --onefile main.py
           mv dist/main ./dist/main_linux
-        elif [ ${{ runner.os }} == 'macOS' ]; then
+        elif [ $RUNNER_OS == 'macOS' ]; then
           pyinstaller --onefile main.py
           mv dist/main ./dist/main_macos
-        elif [ ${{ runner.os }} == 'Windows' ]; then
+        elif [ $RUNNER_OS == 'Windows' ]; then
           pyinstaller --onefile main.py
           mv dist/main.exe ./dist/main_windows.exe
         fi
